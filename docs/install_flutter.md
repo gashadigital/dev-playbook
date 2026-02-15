@@ -1,0 +1,71 @@
+# Flutter Installation & Setup
+
+**Guide for setting up the Flutter SDK and development environment on Windows.**
+
+---
+
+## 1. Prerequisites
+
+Before installing Flutter, ensure you have:
+
+* **Operating System:** Windows 10 or 11 (64-bit).
+* **Disk Space:** At least 2.5 GB (excluding IDE/Android Studio).
+* **Git for Windows:** Installed and configured in your System Path.
+
+---
+
+## 2. Flutter SDK Installation
+
+* **Download:** Get the latest stable release of the Flutter SDK from the [official website](https://docs.flutter.dev/install/manual).
+* **Extract:** Extract the zip file to a permanent location (e.g., `C:\src\flutter`).
+  * **Important:** Do NOT install Flutter in a directory that requires elevated privileges (like `C:\Program Files\`).
+* **Environment Variables:**
+  * Win + S -> Search "Environment Variables".
+  * Under **User variables**, find "Path" and click **Edit**.
+  * Click **New** and add the full path to the `flutter\bin` folder (e.g., `C:\src\flutter\bin`).
+* **Verification:** Open a new Command Prompt or PowerShell and run:
+
+   ```bash
+   flutter --version
+   ```
+
+## 3. Android Setup
+
+* **Android Studio:** Download and install [Android Studio](https://developer.android.com/studio).
+
+* **SDK Manager:** Open Android Studio, go to _`Settings` > `Languages & Frameworks` > `Android SDK`_.
+
+  * Install the latest Android SDK (API 35 or newer).
+  * Go to **SDK Tools** tab and ensure Android SDK Command-line Tools (latest) is checked and installed.
+
+* **Licenses**: Run the following command in your terminal to accept the licenses:
+
+   ```bash
+   flutter doctor --android-licenses
+   ```
+
+## 4. IDE Configuration (VS Code)
+
+* **Install VS Code**: If not already installed, download it from [code.visualstudio.com](https://code.visualstudio.com).
+
+* **Extensions**: Go to the Extensions view (Ctrl+Shift+X) and install:
+
+  * Flutter (this will automatically install the Dart extension).
+
+* **Flutter Doctor**: Run the final check to ensure everything is connected:
+
+    ```bash
+    flutter doctor
+    ```
+
+_Note: Address any [X] or [!] marks shown in the output._
+
+## 5. Creating Your First Project
+
+To verify the installation works, create a test project:
+
+```bash
+flutter create my_test_app
+cd my_test_app
+flutter run
+```
