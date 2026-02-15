@@ -9,8 +9,26 @@ A curated collection of technical workflows, manual setup guides, and best pract
 ### 📑 Chapter 1: Version Control
 
 * **[1.1 Introduction to Git](docs/git_basics.md)**: Essential concepts and setup.
-* **[1.2 Daily Workflow](docs/git_workflow.md)**: Staging, committing, and pushing.
-* **[1.3 Branching & Teamwork](docs/teamwork.md)**: Managing features and updates.
+* **[1.2 Daily Workflow](docs/git_basics.md#3-the-daily-workflow)**: Staging, committing, and pushing.
+* **[1.3 Branching & Teamwork](docs/git_basics.md#4-branching-working-on-features)**: Managing features and updates.
+
+### 📑 Chapter 2: Local Server Environment
+
+* **[2.1 WAMP Stack Setup](docs/wamp_setup.md)**: Manual installation of Apache, PHP, MySQL, and phpMyAdmin.
+
+### 📑 Chapter 3: Mobile Development
+
+* **[3.1 Flutter Installation](docs/install_flutter.md)**: Setting up the SDK and environment variables.
+* **[3.2 Native Splash Screens](./native_splash_docs.md)**: Using `flutter_native_splash` for Android/iOS.
+* **3.3 Environment & Assets**: Managing API hosts and branding assets.
+
+### 📑 Chapter 4: Web Development & Frameworks
+
+* **4.1 Next.js & TypeScript**: Project initialization and directory structure.
+* **[4.2 Vercel Deployment](./vercel_guide.md)**: Continuous deployment and Git integration.
+* **4.3 Laravel Essentials**: Core concepts and server requirements.
+
+---
 
 ## 🛠️ Getting Started
 
