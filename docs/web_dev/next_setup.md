@@ -1,0 +1,58 @@
+# Next.js & TypeScript Setup
+
+**Initializing a modern web project with Next.js, TypeScript, and Tailwind CSS.**
+
+---
+
+## 1. Project Initialization
+
+Run the following command in your terminal to start the setup wizard:
+
+```bash
+npx create-next-app@latest --typescript
+```
+
+## 2. Directory Structure
+
+After initialization, your `src/` folder will look like this:
+
+```bash
+src/
+  ├── app/            # Routes, layouts, and pages
+  │   ├── layout.tsx  # Global UI (Header/Footer)
+  │   ├── page.tsx    # Home page
+  │   └── globals.css # Global Styles (Tailwind)
+  ├── components/     # Reusable UI components
+  ├── lib/            # Utility functions and API clients
+  └── types/          # TypeScript interfaces/types
+  ```
+
+## 3. Running the App
+
+Navigate into your project folder and start the development server:
+
+```bash
+cd my-web-app
+pnpm run dev
+```
+
+_Open <http://localhost:3000> to see your app._
+
+## 4. TypeScript Tips
+
+- **Interfaces:** Use `interface` for object structures (e.g., `User`, `Product`).
+
+- **Strict Mode:** Keep `strict: true` in `tsconfig.json` to catch more errors.
+
+- **Component Typing:**
+
+```typescript
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+}
+
+export default function Button({ label, onClick }: ButtonProps) {
+  return <button onClick={onClick}>{label}</button>;
+}
+```
