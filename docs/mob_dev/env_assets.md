@@ -21,11 +21,11 @@ class EnvConfig {
   static String get baseUrl {
     switch (environment) {
       case AppEnvironment.dev:
-        return "[http://192.168.1.100:90/api](http://192.168.1.100:90/api)"; // Local WAMP Server
+        return "http://192.168.1.100:90/api"; // Local WAMP Server
       case AppEnvironment.staging:
-        return "[https://staging.gashadigital.com/api](https://staging.gashadigital.com/api)";
+        return "https://staging.gashadigital.com/api";
       case AppEnvironment.prod:
-        return "[https://api.gashadigital.com/api](https://api.gashadigital.com/api)";
+        return "https://api.gashadigital.com/api";
     }
   }
 }
