@@ -25,7 +25,7 @@ A curated collection of technical workflows, manual setup guides, and best pract
 ### 📑 Chapter 4: Web Development & Frameworks
 
 * **[4.1 Next.js & TypeScript](docs/web_dev/next_setup.md)**: Project initialization and directory structure.
-* **[4.2 Vercel Deployment](./vercel_guide.md)**: Continuous deployment and Git integration.
+* **[4.2 Vercel Deployment](docs/web_dev/vercel_guide.md)**: Continuous deployment and Git integration.
 * **[4.3 Laravel Essentials](docs/web_dev/laravel_essentials.md)**: Core concepts and server requirements.
 * **[4.4 Mail Sandbox Setup](docs/web_dev/mail_sandbox_setup.md)**: Outgoing mail setup for laravel projects using mailtrap sandbox.
 
