@@ -26,7 +26,7 @@ A curated collection of technical workflows, manual setup guides, and best pract
 
 * **[4.1 Next.js & TypeScript](docs/web_dev/next_setup.md)**: Project initialization and directory structure.
 * **[4.2 Vercel Deployment](./vercel_guide.md)**: Continuous deployment and Git integration.
-* **4.3 Laravel Essentials**: Core concepts and server requirements.
+* **[4.3 Laravel Essentials](docs/web_dev/laravel_essentials.md)**: Core concepts and server requirements.
 
 ---
 
