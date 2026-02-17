@@ -83,14 +83,18 @@ void main() {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   runApp(const MyApp());
+
+  // Start initialization; remove() will be called when ready
+  initialization();
 }
 
-// Inside your initialization logic:
-void initialization() async {
-  // Perform tasks...
+Future<void> initialization() async {
+  // Perform tasks (e.g., check auth, fetch config)...
   await Future.delayed(const Duration(seconds: 2));
 
-  // Remove the splash screen
+  // Remove the splash screen when ready
   FlutterNativeSplash.remove();
 }
 ```
+
+> **Tip:** Alternatively, you can call `initialization()` from your first screen's `initState` if you prefer to run startup logic inside the widget tree.
