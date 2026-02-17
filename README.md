@@ -19,7 +19,7 @@ A curated collection of technical workflows, manual setup guides, and best pract
 ### 📑 Chapter 3: Mobile Development
 
 * **[3.1 Flutter Installation](docs/mob_dev/install_flutter.md)**: Setting up the SDK and environment variables.
-* **[3.2 Native Splash Screens](./native_splash_docs.md)**: Using `flutter_native_splash` for Android/iOS.
+* **[3.2 Native Splash Screens](docs/mob_dev/native_splash_docs.md)**: Using `flutter_native_splash` for Android/iOS.
 * **[3.3 Environment & Assets](docs/mob_dev/env_assets.md)**: Managing API hosts and branding assets.
 
 ### 📑 Chapter 4: Web Development & Frameworks
