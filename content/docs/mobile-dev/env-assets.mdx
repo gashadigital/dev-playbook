@@ -1,0 +1,98 @@
+---
+title: Environment & App Asset Management
+description: Best practices for managing API environments and branding assets in Flutter.
+---
+
+**Best practices for managing API environments and branding assets in Flutter.**
+
+## 1. Environment Configuration (API Management)
+
+In professional apps, you need to switch between `Development`, `Staging`, and `Production` servers without manually changing code.
+
+### Using a Config File
+
+Create a file at `lib/core/config/env_config.dart`:
+
+```dart
+enum AppEnvironment { dev, staging, prod }
+
+class EnvConfig {
+  static AppEnvironment environment = AppEnvironment.dev;
+
+  static String get baseUrl {
+    switch (environment) {
+      case AppEnvironment.dev:
+        return "http://192.168.1.100:90/api"; // Local WAMP Server
+      case AppEnvironment.staging:
+        return "https://staging.gashadigital.com/api";
+      case AppEnvironment.prod:
+        return "https://api.gashadigital.com/api";
+    }
+  }
+}
+```
+
+#### Using in API
+
+```dart
+final String apiUrl = "${EnvConfig.baseUrl}/login";
+```
+
+## 2. App Asset Management
+
+Managing images, icons, and fonts requires a structured approach to avoid "string-path errors."
+
+### Folder Structure
+
+Organize your assets folder at the root of your project:
+
+```bash
+assets/
+  ├── images/       # Photos, backgrounds
+  ├── icons/        # App icons, UI symbols
+  ├── logos/        # Branding (logo.png, branding.png)
+  └── fonts/        # Custom typography
+```
+
+### pubspec.yaml Declaration
+
+Register the folders so Flutter can see them:
+
+```bash
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/logos/
+    - assets/icons/
+```
+
+### The "Asset Constants" Pattern
+
+Create `lib/core/constants/assets_path.dart` to avoid typing paths manually in your UI:
+
+```dart
+class AppAssets {
+  // Logos
+  static const String logoLight = "assets/logos/logo.png";
+  static const String logoDark = "assets/logos/logo_dark.png";
+  static const String branding = "assets/logos/branding.png";
+
+  // Icons
+  static const String homeIcon = "assets/icons/home_icon.svg";
+}
+```
+
+### Usage in UI
+
+```dart
+Image.asset(AppAssets.logoLight)
+```
+
+## 3. Best Practices
+
+- **SVG over PNG:** Use SVGs for icons to ensure they stay sharp at any screen size. Use the `flutter_svg` package.
+
+- **Image Optimization:** Always compress `.png` and `.jpg` files before adding them to the project to keep the App Bundle size small.
+
+- **Naming Convention:** Use `snake_case` for asset filenames (e.g., `user_profile_placeholder.png`).

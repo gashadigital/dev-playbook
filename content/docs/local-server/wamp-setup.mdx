@@ -1,0 +1,110 @@
+---
+title: WAMP Stack Setup
+description: Manual installation of Apache, PHP, MySQL, and phpMyAdmin on Windows.
+---
+
+**SET UP APACHE MYSQL AND PHP ON WINDOWS MANUALLY**
+
+This guide provides a step-by-step manual installation of the WAMP stack in a custom directory (e.g., `D:/localserver/`).
+
+## APACHE SETUP STEPS
+
+1. **Download:** Get Apache 2.4 from the official archives.
+2. **Extract:** Locate a directory and extract there (Recommended: `D:/localserver/`).
+3. **Configure Root:** Update `httpd.conf` found in `%PATH%Apache24/conf`:
+   - `Define SRVROOT "D:/localserver/Apache24"`
+4. **Locate Path:** Open Command Prompt as an administrator and navigate to:
+   `D:/localserver/Apache24/bin/`
+5. **System Path:** Win + S -> Search "Environment Variables" -> System Variables -> Click "Path" -> New -> Add `D:/localserver/Apache24/bin/`.
+6. **Install Service:** Run the following command in the admin CMD: 
+
+   ```cmd
+   httpd -k install
+   ```
+
+   - **6.1** If it fails to qualify the domain name (server reliability):
+   - **6.2** Open `httpd.conf`.
+   - **6.3** Find and replace `#ServerName www.example.com:80` with `ServerName localhost` or `ServerName localhost:80`.
+   - **6.4** Save and restart Apache: `httpd -k restart`.
+
+7. **Start Service:** Run `services.msc` (Win + R) and start the **Apache2.4** service.
+8. **Port Conflicts:** If you encounter a port error, update the port in `httpd.conf` on the line:
+   `Listen 90`
+
+## PHP SETUP STEPS
+
+1. **Download:** Download the PHP 8.3.4 Thread Safe Compiled Zip file.
+2. **Extract:** Place the extracted file in the same folder as `Apache24` (e.g., `D:/localserver/`) and rename the folder to `php-8.3.4`.
+3. **Initialize:** Rename the file `php.ini-development` to `php.ini`.
+4. **Environment Variables:** Add PHP to the system environment variables. You can use the `setx` command in an Administrator Command Prompt or via **PC > Properties > Advanced System Settings > Environment Variables**:
+
+   ```bat
+   setx path "%PATH:D:\localserver\php-8.3.4;=%" /M
+   ```
+
+5. **Link to Apache:** Open Apache's `httpd.conf` and append the following:
+
+    ```bash
+    LoadModule php_module "D:/localserver/php-8.3.4/php8apache2_4.dll"
+    <FilesMatch \.php$>
+        SetHandler application/x-httpd-php
+    </FilesMatch>
+    # Configure the path to php.ini
+    PHPIniDir "D:/localserver/php-8.3.4"
+   ```
+
+6. **Restart:** Restart the Apache2.4 service via `services.msc`.
+
+## MySQL SETUP STEPS
+
+1. **Download:** Download the MySQL 8.2.0 installer from the archive section.
+2. **Installation:** Select **Full** installation.
+3. **Configuration:** Choose **Dev computer** or **Server** for the Config Type.
+4. **Authentication:** Select **Legacy** mode (Retain MySQL 5.x compatibility).
+5. **Security:** Set your **root** password on the "Accounts and Roles" screen.
+6. **Start:** Start the **MySQL82** service by opening **services.msc** (Win + R).
+   *Note: If you encounter existing version conflicts, resolve this by changing the port to `3340` (X Port: `33090`).*
+
+### Resetting MySQL Password
+
+1. Save the following code in a text file named `mysql-init.txt` and save it to a location (e.g., `D:\`):
+
+   ```sql
+   ALTER USER 'root'@'localhost' IDENTIFIED BY 'swordfish';
+   ```
+
+2. Open **Command Prompt** as an administrator and run these commands:
+
+   ```bash
+   cd "%PATH%\MySQL\MySQL Server 8.2\bin"
+   mysqld --init-file=D:\\mysql-init.txt
+   ```
+
+## phpMyAdmin SETUP STEPS
+
+- **Download:** Get phpMyAdmin 5.2.1.
+- **Extract:** Place in `%PATH%/Apache24/htdocs/`.
+- **Set Index:** Update `httpd.conf` to prioritize `.php` (found in `dir_module`):
+
+   ```bash
+   <IfModule dir_module>
+      DirectoryIndex index.php
+   </IfModule>
+   ```
+
+- **Update php.ini**: In `D:\localserver\php-8.3.4\php.ini`, locate and update:
+
+   ```bash
+   extension_dir = "ext"
+   extension="D:\localserver\php-8.3.4\ext\php_mysqli.dll"
+   ```
+
+- **Auth Configuration**: Open config.inc.php in the phpMyAdmin directory:
+
+   ```bash
+   $cfg['Servers'][$i]['user'] = 'root';
+   $cfg['Servers'][$i]['password'] = 'your_password'; // Password you set earlier
+
+   // If you encountered MySQL version issues and used a different port:
+   $cfg['Servers'][$i]['host'] = 'localhost:3340';
+   ```

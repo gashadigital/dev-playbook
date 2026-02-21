@@ -1,0 +1,10 @@
+{
+  "title": "Dev Playbook",
+  "pages": [
+    "index",
+    "version-control",
+    "local-server",
+    "mobile-dev",
+    "web-dev"
+  ]
+}
