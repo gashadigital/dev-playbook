@@ -1,4 +1,5 @@
 {
   "title": "Version Control",
+  "icon": "GitBranch",
   "pages": ["git-basics"]
 }

@@ -1,4 +1,5 @@
 {
   "title": "Web Development & Frameworks",
+  "icon": "Globe",
   "pages": ["next-setup", "laravel-essentials", "mail-sandbox-setup"]
 }

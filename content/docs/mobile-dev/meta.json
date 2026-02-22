@@ -1,4 +1,5 @@
 {
   "title": "Mobile Development",
+  "icon": "Smartphone",
   "pages": ["install-flutter", "native-splash-docs", "env-assets"]
 }
