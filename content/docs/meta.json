@@ -1,0 +1,5 @@
+{
+  "title": "Dev Playbook",
+  "icon": "BookOpen",
+  "pages": ["index", "version-control", "local-server", "mobile-dev", "web-dev"]
+}

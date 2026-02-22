@@ -1,14 +1,13 @@
-# Laravel Mail & Mailtrap Setup
+---
+title: Laravel Mail & Mailtrap Setup
+description: Configuring SMTP for local email testing using Mailtrap.
+---
 
 **Configuring SMTP for local email testing using Mailtrap.**
-
----
 
 ## 1. What is Mailtrap?
 
 Mailtrap is an "Email Sandbox" that captures outgoing emails from your local Laravel app. It provides a fake SMTP server so you can view how your emails look without bothering real recipients.
-
----
 
 ## 2. Mailtrap Configuration (.env)
 
@@ -17,7 +16,7 @@ Mailtrap is an "Email Sandbox" that captures outgoing emails from your local Lar
 3. Select **Laravel 9+** from the "Integrations"-`PHP` dropdown.
 4. Copy the credentials into your `.env` file:
 
-```env
+```properties
 MAIL_MAILER=smtp
 MAIL_HOST=sandbox.smtp.mailtrap.io
 MAIL_PORT=2525
@@ -74,4 +73,3 @@ php artisan config:clear
 
 - **Connection Timeout:** Ensure your firewall allows outgoing traffic on port 2525 or 587.
 - **Mail Driver:** For local testing, ensure MAIL_MAILER is set to smtp. For logs only (no UI), you can use log.
-

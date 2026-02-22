@@ -1,8 +1,9 @@
-# Laravel Essentials
+---
+title: Laravel Essentials
+description: Core concepts, environment setup, and project structure for Laravel.
+---
 
 **Core concepts, environment setup, and project structure for Laravel.**
-
----
 
 ## 1. Prerequisites & Installation
 
@@ -53,31 +54,31 @@ DB_PASSWORD=swordfish # The password you set in the MySQL setup
 The `php artisan` tool is your best friend in Laravel development.
 
 - `php artisan serve`: Starts the local development server.
-- `php artisan make`:controller NameController: Generates a new controller.
-- `php artisan make`:model Name -m: Creates a model and a migration file.
+- `php artisan make:controller NameController`: Generates a new controller.
+- `php artisan make:model Name -m`: Creates a model and a migration file.
 - `php artisan migrate`: Runs your migrations to create tables in MySQL.
 - `php artisan route:list`: Shows all registered routes in your app.
 
 ## 5. Advanced Artisan Commands
 
-### 🗄️ Database Management
+### Database Management
 
 - `php artisan migrate --path=/database/migrations/specific_file.php`: Runs only a specific migration file instead of the whole folder.
 - `php artisan db:seed --class=UserSeeder`: Runs a specific seeder class.
 - `php artisan migrate:fresh --seed`: Crucial Command. It drops all tables, re-runs all migrations from scratch, and then runs the default `DatabaseSeeder`. Perfect for resetting your dev environment.
 
-### 📁 Storage & Filesystem
+### Storage & Filesystem
 
 - `php artisan storage:link`: Creates a symbolic link from `public/storage` to `storage/app/public`. This is required to make uploaded files (like user avatars) accessible to the web browser.
 
-### ⚡ Optimization & Cache Clearing
+### Optimization & Cache Clearing
 
 - `php artisan cache:clear`: Clears the application cache.
 - `php artisan config:clear`: Removes the configuration cache file.
 - `php artisan config:cache`: Combines all configuration files into one for faster loading (use this in Production).
 - `php artisan optimize:clear`: A "master" clear command that removes the cache for config, routes, views, and events all at once.
 
-### ⚙️ Queue Handling (Background Tasks)
+### Queue Handling (Background Tasks)
 
 - `php artisan queue:work`: Starts a process that listens for and executes background jobs (like sending emails).
 - `php artisan queue:restart`: Signal the queue workers to restart after they finish their current job. Use this whenever you update your code so the workers pick up the new changes.

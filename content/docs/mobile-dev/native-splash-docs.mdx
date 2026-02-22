@@ -1,10 +1,11 @@
-# Native Splash Screen Setup
+---
+title: Native Splash Screen Setup
+description: Automated generation of native launch screens for Android and iOS using flutter_native_splash.
+---
 
 **Automated generation of native launch screens for Android and iOS.**
 
 Using the `flutter_native_splash` package is the best practice for Gasha Digital projects because it eliminates the "white flash" seen when an app loads. This guide covers the configuration for standard and Android 12+ devices.
-
----
 
 ## 1. Dependency Setup
 
@@ -14,8 +15,6 @@ Add the package to your `dev_dependencies` in `pubspec.yaml`:
 dev_dependencies:
   flutter_native_splash: ^2.4.0
 ```
-
----
 
 ## 2. Configuration (pubspec.yaml)
 
@@ -45,8 +44,6 @@ flutter_native_splash:
   web: false
 ```
 
----
-
 ## 3. Image Requirements
 
 To ensure the logo is not cropped or distorted:
@@ -54,8 +51,6 @@ To ensure the logo is not cropped or distorted:
 - **Standard Image:** Should be sized for 4x pixel density (approx. 1024×1024 px) with adequate padding.
 - **Android 12 Icon:** Must fit within a 768px diameter circle at the center of a 1152×1152px canvas.
 - **Format:** Must be `.png`.
-
----
 
 ## 4. Execution Commands
 
@@ -68,8 +63,6 @@ dart run flutter_native_splash:create
 # If you ever want to revert to the default white screen
 dart run flutter_native_splash:remove
 ```
-
----
 
 ## 5. Keeping Splash Visible (Optional)
 

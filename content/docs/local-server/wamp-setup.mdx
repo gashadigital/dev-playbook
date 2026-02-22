@@ -1,10 +1,11 @@
-# WAMP Stack Setup
+---
+title: WAMP Stack Setup
+description: Manual installation of Apache, PHP, MySQL, and phpMyAdmin on Windows.
+---
 
 **SET UP APACHE MYSQL AND PHP ON WINDOWS MANUALLY**
 
 This guide provides a step-by-step manual installation of the WAMP stack in a custom directory (e.g., `D:/localserver/`).
-
----
 
 ## APACHE SETUP STEPS
 
@@ -30,8 +31,6 @@ This guide provides a step-by-step manual installation of the WAMP stack in a cu
 8. **Port Conflicts:** If you encounter a port error, update the port in `httpd.conf` on the line:
    `Listen 90`
 
----
-
 ## PHP SETUP STEPS
 
 1. **Download:** Download the PHP 8.3.4 Thread Safe Compiled Zip file.
@@ -39,7 +38,7 @@ This guide provides a step-by-step manual installation of the WAMP stack in a cu
 3. **Initialize:** Rename the file `php.ini-development` to `php.ini`.
 4. **Environment Variables:** Add PHP to the system environment variables. You can use the `setx` command in an Administrator Command Prompt or via **PC > Properties > Advanced System Settings > Environment Variables**:
 
-   ```dos
+   ```bat
    setx path "%PATH:D:\localserver\php-8.3.4;=%" /M
    ```
 
@@ -56,8 +55,6 @@ This guide provides a step-by-step manual installation of the WAMP stack in a cu
 
 6. **Restart:** Restart the Apache2.4 service via `services.msc`.
 
----
-
 ## MySQL SETUP STEPS
 
 1. **Download:** Download the MySQL 8.2.0 installer from the archive section.
@@ -68,7 +65,7 @@ This guide provides a step-by-step manual installation of the WAMP stack in a cu
 6. **Start:** Start the **MySQL82** service by opening **services.msc** (Win + R).
    *Note: If you encounter existing version conflicts, resolve this by changing the port to `3340` (X Port: `33090`).*
 
-#### 🔑 RESETTING MySQL Password
+### Resetting MySQL Password
 
 1. Save the following code in a text file named `mysql-init.txt` and save it to a location (e.g., `D:\`):
 
