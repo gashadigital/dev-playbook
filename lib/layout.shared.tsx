@@ -10,7 +10,16 @@ export const gitConfig = {
 export function baseOptions(): BaseLayoutProps {
   return {
     nav: {
-      title: 'Gasha Digital Dev Playbook',
+      title: (
+        <>
+          <img
+            src="/fav/favicon.svg"
+            alt=""
+            className="size-6 shrink-0"
+          />
+          <span>Gasha Digital Dev Playbook</span>
+        </>
+      ),
       transparentMode: 'top',
     },
     githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
