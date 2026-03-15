@@ -1,0 +1,110 @@
+---
+title: Deployment to Vercel
+description: Connect your Next.js or static frontend projects to Vercel for automated CI/CD and production hosting.
+---
+
+A guide on connecting your Next.js or static frontend projects to [Vercel](https://vercel.com/) for automated CI/CD and production hosting.
+
+---
+
+## 1. Pre-Deployment Checklist
+
+Before initiating a deployment, ensure your project is production-ready to avoid "Build Failed" status.
+
+<Steps>
+  <Step>
+    ### Environment Variables
+    Ensure all local `.env` keys (API keys, DB URLs, etc.) are ready to be pasted into the Vercel dashboard.
+  </Step>
+  <Step>
+    ### Build Test
+    Run `npm run build` locally. If it fails here, it will fail on Vercel.
+  </Step>
+  <Step>
+    ### Branch Health
+    Ensure your `main` branch is stable and all features are merged.
+  </Step>
+</Steps>
+
+<Callout type="warn" title="Build Locally First">
+  A successful local build is the best predictor of a successful Vercel deployment. Fix any TypeScript or lint errors before pushing.
+</Callout>
+
+---
+
+## 2. The Deployment Process
+
+<Steps>
+  <Step>
+    ### Import Project
+    Sign in to [Vercel](https://vercel.com/) via GitHub and select the Gasha Digital repository you wish to deploy.
+  </Step>
+  <Step>
+    ### Framework Detection
+    Vercel will automatically detect Next.js. Do not change the default build settings unless you have a custom folder structure.
+  </Step>
+  <Step>
+    ### Configure Environment Variables
+    - Expand the **Environment Variables** section.
+    - Paste your keys and values.
+    - **Tip:** You can drag and drop your `.env.local` file directly into the interface to bulk-upload.
+  </Step>
+  <Step>
+    ### Deploy
+    Click the **Deploy** button. Vercel will provision a server, install dependencies, and build your project.
+  </Step>
+</Steps>
+
+---
+
+## 3. CI/CD & Preview Deployments
+
+One of Vercel's strongest features is its automated pipeline:
+
+| Branch Type | Trigger | Result |
+|-------------|---------|--------|
+| **Production** (`main`) | Every push | Live production update |
+| **Preview** (e.g. `feature/ui-update`) | Every push to non-main | Unique Preview URL generated |
+
+<Callout type="idea" title="Use Preview URLs">
+  Share Preview URLs with stakeholders for feedback before merging to production. Each branch gets its own deployable URL.
+</Callout>
+
+---
+
+## 4. Custom Domains & SSL
+
+Once the deployment is successful:
+
+<Steps>
+  <Step>
+    ### Go to Domains
+    Navigate to **Settings** → **Domains**.
+  </Step>
+  <Step>
+    ### Add Custom Domain
+    Add your custom domain (e.g. `app.gashadigital.com`).
+  </Step>
+  <Step>
+    ### Update DNS
+    Update your DNS records (A or CNAME) as instructed by the dashboard.
+  </Step>
+  <Step>
+    ### SSL
+    Vercel automatically issues and renews Let's Encrypt SSL certificates for all connected domains.
+  </Step>
+</Steps>
+
+---
+
+## 5. Deployment Troubleshooting
+
+| Error | Common Cause | Fix |
+|-------|--------------|-----|
+| **Build Failed** | Type errors or missing dependencies | Run `npm run build` locally and fix all linting/TS errors |
+| **Environment Variable Missing** | Forgot to add a key in Vercel settings | Add the key in **Settings** → **Environment Variables** and redeploy |
+| **404 on Refresh** | Static routing issues (SPA) | Ensure a `vercel.json` file is present with proper rewrites if not using Next.js |
+
+<Callout type="info" title="Next.js Routing">
+  Next.js handles client-side routing natively. If you're using a different framework (e.g. plain React SPA), add rewrites in `vercel.json` to route all paths to `index.html`.
+</Callout>
