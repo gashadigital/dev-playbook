@@ -1,5 +1,5 @@
 {
   "title": "Web Development & Frameworks",
   "icon": "Globe",
-  "pages": ["next-setup", "laravel-essentials", "mail-sandbox-setup"]
+  "pages": ["next-setup", "laravel-essentials", "mail-sandbox-setup", "deployment-to-vercel"]
 }
