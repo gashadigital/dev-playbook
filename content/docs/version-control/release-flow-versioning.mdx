@@ -119,7 +119,14 @@ git tag -a v1.1.0 -m "v1.1.0 - Mailtrap Integration & Fixes"
 # 4. Push to Origin
 git push origin main
 git push origin v1.1.0
+
+# Alternative (Git 2.4+): Push both atomically in one command
+git push --atomic origin main v1.1.0
 ```
+
+<Callout type="info" title="Git 2.4+ Atomic Push">
+  With Git 2.4 and newer, you can use `git push --atomic origin main v1.1.0` to push both the branch and tag in a single atomic operation — either both succeed or both fail.
+</Callout>
 
 <Callout type="warn" title="Don't Forget the Tag Push">
   `git push origin main` does not push tags. You must run `git push origin v1.1.0` (or `git push --tags`) separately.
