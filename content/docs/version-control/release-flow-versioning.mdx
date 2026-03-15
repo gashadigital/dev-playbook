@@ -1,0 +1,168 @@
+---
+title: The Release Flow & Versioning
+description: How Gasha Digital manages project milestones, version bumps, and history tracking with SemVer and Keep a Changelog.
+---
+
+This document outlines how Gasha Digital manages project milestones, version bumps, and history tracking.
+
+---
+
+## 1. Semantic Versioning (SemVer)
+
+We follow the **MAJOR.MINOR.PATCH** format:
+
+<Callout type="info" title="Version Format">
+  <strong>MAJOR.MINOR.PATCH</strong> — Each number has a specific meaning for compatibility.
+</Callout>
+
+| Version | Example | When to Use |
+|---------|---------|-------------|
+| **MAJOR** | `1.0.0` | Incompatible API changes or massive overhauls |
+| **MINOR** | `0.1.0` | Adding functionality in a backwards-compatible manner (new features) |
+| **PATCH** | `0.0.1` | Backwards-compatible bug fixes or security updates |
+
+---
+
+## 2. The Changelog Standard
+
+All projects must maintain a `CHANGELOG.md` in the root directory. We follow [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+<Callout type="idea" title="Key Types of Changes">
+  Use these section headers in your changelog to categorize changes clearly.
+</Callout>
+
+| Type | Purpose |
+|------|---------|
+| **Added** | New features |
+| **Changed** | Changes in existing functionality |
+| **Deprecated** | Soon-to-be removed features |
+| **Removed** | Now removed features |
+| **Fixed** | Bug fixes |
+| **Security** | Vulnerability fixes |
+
+---
+
+## 3. Step-by-Step Release Workflow
+
+<Steps>
+  <Step>
+    ### Preparation (The "Unreleased" Phase)
+    Throughout development, log all changes under an `[Unreleased]` header at the top of your `CHANGELOG.md`.
+  </Step>
+  <Step>
+    ### Final Testing & Version Bump
+    Verify code, update manifest (if applicable), and move `[Unreleased]` items to a new version header with the current date.
+  </Step>
+  <Step>
+    ### Git Release Process
+    Stage, commit, tag, and push to origin.
+  </Step>
+  <Step>
+    ### Publish on GitHub/GitLab
+    Draft a new release, attach the tag, and publish.
+  </Step>
+</Steps>
+
+### Step A: Preparation (The "Unreleased" Phase)
+
+Throughout development, all changes are logged under an `[Unreleased]` header at the top of your `CHANGELOG.md`.
+
+**Example CHANGELOG.md during development:**
+
+```markdown
+# Changelog
+All notable changes to this project will be documented in this file.
+
+## [Unreleased]
+### Added
+- Integrated Mailtrap for Laravel email testing.
+- Added Chrome Extension manifest versioning script.
+
+### Fixed
+- Resolved MySQL port collision on WAMP setup.
+```
+
+### Step B: Final Testing & Version Bump
+
+- **Verify Code:** Ensure all tests pass.
+- **Chrome Extension** (if applicable): Update the version field in `manifest.json`.
+- **Update Changelog:** Move the items from `[Unreleased]` to a new version header with the current date.
+
+**Example CHANGELOG.md after version bump:**
+
+```markdown
+## [1.1.0] - 2023-10-27
+### Added
+- Integrated Mailtrap for Laravel email testing.
+- Added Chrome Extension manifest versioning script.
+
+### Fixed
+- Resolved MySQL port collision on WAMP setup.
+```
+
+### Step C: The Git Release Process
+
+Run these commands in your terminal to finalize the release:
+
+```bash
+# 1. Stage the changelog and manifest updates
+git add CHANGELOG.md manifest.json
+
+# 2. Commit the release bump
+git commit -m "chore: release version 1.1.0"
+
+# 3. Create a Tag (This marks the specific point in history)
+# -a creates an annotated tag, -m provides the message
+git tag -a v1.1.0 -m "v1.1.0 - Mailtrap Integration & Fixes"
+
+# 4. Push to Origin
+git push origin main
+git push origin v1.1.0
+
+# Alternative (Git 2.4+): Push both atomically in one command
+git push --atomic origin main v1.1.0
+```
+
+<Callout type="info" title="Git 2.4+ Atomic Push">
+  With Git 2.4 and newer, you can use `git push --atomic origin main v1.1.0` to push both the branch and tag in a single atomic operation — either both succeed or both fail.
+</Callout>
+
+<Callout type="warn" title="Don't Forget the Tag Push">
+  `git push origin main` does not push tags. You must run `git push origin v1.1.0` (or `git push --tags`) separately.
+</Callout>
+
+---
+
+## 4. Professional Release on GitHub/GitLab
+
+Once the tag is pushed, follow these steps on the web interface:
+
+<Steps>
+  <Step>
+    ### Navigate to Releases
+    Go to **Releases** → **Draft a new release**.
+  </Step>
+  <Step>
+    ### Choose the Tag
+    Select the tag `v1.1.0` from the dropdown.
+  </Step>
+  <Step>
+    ### Add Title & Description
+    **Title:** `v1.1.0 - Mailtrap Integration & Fixes`  
+    **Description:** Copy and paste the entry from your `CHANGELOG.md` for this version.
+  </Step>
+  <Step>
+    ### Publish
+    Click **Publish Release**.
+  </Step>
+</Steps>
+
+---
+
+## 5. Quick Reference Table
+
+| Change Type | Version Bump | Example Scenario |
+|-------------|--------------|------------------|
+| **Patch** | `1.0.1` | Fixed a typo in the login error message |
+| **Minor** | `1.1.0` | Added a "Forgot Password" feature |
+| **Major** | `2.0.0` | Changed the entire database schema (Breaking Change) |
