@@ -1,5 +1,5 @@
 import { Card, Cards } from 'fumadocs-ui/components/card';
-import { GitBranch, Server, Smartphone, Globe } from 'lucide-react';
+import { GitBranch, Server, Smartphone, Globe, Lock } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -8,11 +8,7 @@ export default function HomePage() {
         Gasha Digital Dev Playbook
       </h1>
       <p className="text-muted-foreground mb-2 max-w-2xl">
-        A curated collection of technical workflows, manual setup guides, and best
-        practices for Full-Stack and Mobile development.
-      </p>
-      <p className="text-muted-foreground mb-12 max-w-2xl">
-        This playbook is designed to standardize development environments and streamline the onboarding process for new projects.
+        The engineering blueprint for modern development. A curated knowledge base of manual stack configurations, DevOps workflows, and cross-platform strategies engineered to eliminate configuration drift, standardize local environments, and accelerate project onboarding.
       </p>
       <Cards className="w-full">
         <Card
@@ -38,6 +34,12 @@ export default function HomePage() {
           title="Web Development"
           href="/docs/web-dev/next-setup"
           description="Next.js, Laravel, and mail setup"
+        />
+        <Card
+          icon={<Lock className="size-4" />}
+          title="Identity & Authentication Providers"
+          href="/docs/identity-auth"
+          description="Google OAuth 2.0 & credential matrix setup"
         />
       </Cards>
     </div>
