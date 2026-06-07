@@ -1,6 +1,6 @@
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { Step, Steps } from 'fumadocs-ui/components/steps';
-import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
+import { ImageZoom } from './components/image-zoom';
 import { Card, Cards } from 'fumadocs-ui/components/card';
 import type { MDXComponents } from 'mdx/types';
 
