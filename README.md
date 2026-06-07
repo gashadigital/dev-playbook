@@ -19,7 +19,7 @@ We created this playbook to:
 | **Local Server**     | WAMP stack setup (Apache, PHP, MySQL)                  |
 | **Mobile Development** | Flutter setup, splash screens, environment & assets |
 | **Web Development**  | Next.js, Laravel essentials, mail sandbox setup        |
-
+| **Identity & Authentication Providers** | Google OAuth 2.0 & credential matrix setup  |
 ---
 
 ## Get Started
