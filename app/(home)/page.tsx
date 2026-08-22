@@ -1,5 +1,5 @@
 import { Card, Cards } from 'fumadocs-ui/components/card';
-import { GitBranch, Server, Smartphone, Globe, Lock } from 'lucide-react';
+import { GitBranch, Server, Smartphone, Globe, Lock, Rocket } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -40,6 +40,12 @@ export default function HomePage() {
           title="Identity & Authentication Providers"
           href="/docs/identity-auth"
           description="Google OAuth 2.0 & credential matrix setup"
+        />
+        <Card
+          icon={<Rocket className="size-4" />}
+          title="Deployment"
+          href="/docs/deployment/cherry-picking"
+          description="Cherry-picking workflows and deployment guides"
         />
       </Cards>
     </div>
