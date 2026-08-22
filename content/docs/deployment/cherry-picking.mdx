@@ -1,0 +1,227 @@
+---
+title: Cherry-Picking Playbook
+description: Safe cherry-pick workflows for bringing changes from another branch or remote into a local sync branch without merging whole history.
+---
+
+# Cherry-Picking Playbook
+
+This guide documents safe cherry-pick workflows for this repository, including:
+
+- Cherry-picking all commits from one source branch.
+- Cherry-picking selected commits one by one.
+- Cherry-picking multiple source branches into one sync branch.
+- Handling the case where the source feature branch is already merged upstream.
+
+## When To Use This
+
+Use this playbook when you want to bring changes from another branch or remote (for example `project-1`) into a local sync branch (for example `sync/from-project-1_13-07-26`) without merging whole history.
+
+## 1. Preconditions
+
+1. Ensure source remote exists (important for fresh clone):
+
+```bash
+git remote -v
+```
+
+If `project-1` is not listed, add it:
+
+```bash
+git remote add project-1 <path-or-url-to-project-1>
+```
+
+2. Make sure your working tree is clean:
+
+```bash
+git status --short
+```
+
+3. Checkout your target branch (the branch that will receive commits):
+
+```bash
+git checkout sync/from-project-1_13-07-26
+```
+
+or create one
+
+```bash
+git checkout -b sync/from-project-1_dd-mm-yy
+```
+
+4. Fetch latest refs from source remote:
+
+```bash
+git fetch project-1
+```
+
+5. Confirm source branch exists:
+
+```bash
+git for-each-ref --format='%(refname:short)' refs/remotes/project-1
+```
+
+## 2. Cherry-Pick Selected Commits (One by One)
+
+Use this when you want only specific commits.
+
+1. List commits:
+
+```bash
+git log --oneline project-1/feat/latest-branch-name
+```
+
+2. Cherry-pick in oldest-to-newest order:
+
+```bash
+git cherry-pick <hash1>
+git cherry-pick <hash2>
+git cherry-pick <hash3>
+```
+
+3. If conflicts happen:
+
+```bash
+# resolve files
+git add <resolved-files>
+git cherry-pick --continue
+```
+
+4. Abort if needed:
+
+```bash
+git cherry-pick --abort
+```
+
+## 3. Cherry-Pick All Commits From One Source Branch
+
+There are two valid methods.
+
+### Method A: Source branch has unique commits (preferred)
+
+Use this when source branch still has commits not yet in its upstream base.
+
+1. Compute common base and apply full range:
+
+```bash
+BASE=$(git merge-base HEAD project-1/feat/latest-branch-name)
+git cherry-pick $BASE..project-1/feat/latest-branch-name
+```
+
+2. Resolve conflicts if any, then continue:
+
+```bash
+git add <resolved-files>
+git cherry-pick --continue
+```
+
+### Method B: Source branch already merged upstream
+
+Sometimes this check returns zero:
+
+```bash
+git rev-list --count project-1/main..project-1/feat/latest-branch-name
+```
+
+If result is `0`, the feature branch itself has no unique commits left (it was merged already). In this case:
+
+1. Find the merge commit on upstream main:
+
+```bash
+git log --oneline --decorate --merges --grep='latest-branch-name' project-1/main
+```
+
+2. Cherry-pick that merge commit with mainline parent:
+
+```bash
+git cherry-pick -m 1 -x <merge-commit-hash>
+```
+
+Notes:
+
+- `-m 1` selects parent #1 as mainline.
+- `-x` appends original commit reference to message.
+
+## 4. Multiple Source Branches (All, One by One)
+
+If you need to bring all changes from several source branches into one target branch, repeat this sequence per branch:
+
+1. Identify source branch.
+2. Check whether it has unique commits vs its base.
+3. Use Method A or Method B from Section 3.
+4. Resolve conflicts and continue.
+5. Run quick validation (build/tests).
+
+Recommended order:
+
+- Pick foundational/backend branches first.
+- Pick UI/feature branches after backend dependencies are present.
+
+## 5. Conflict Resolution Workflow
+
+During cherry-pick conflict:
+
+```bash
+git status --short
+```
+
+1. Resolve each conflicted file manually.
+2. Stage resolved files:
+
+```bash
+git add <file1> <file2>
+```
+
+3. Continue:
+
+```bash
+git cherry-pick --continue
+```
+
+4. If the conflict should not be included, skip current commit:
+
+```bash
+git cherry-pick --skip
+```
+
+5. If process must be cancelled:
+
+```bash
+git cherry-pick --abort
+```
+
+## 6. Finalize And Push
+
+1. Confirm log and clean tree:
+
+```bash
+git status --short
+git log --oneline -n 5
+```
+
+2. Push target branch:
+
+```bash
+git push -u origin sync/from-project-1_13-07-26
+```
+
+3. Open PR from target branch to main.
+
+## 7. Example Session (What Was Done)
+
+For `project-1/feat/latest-branch-name` into `sync/from-project-1_13-07-26`:
+
+1. Fetched remote refs.
+2. Verified branch exists.
+3. Detected no unique commits vs `project-1/main`.
+4. Located merge commit on `project-1/main`.
+5. Ran:
+
+```bash
+git cherry-pick -m 1 -x c15f093b187a25519abc5f33c7fc7d72c34f8c20
+```
+
+6. Resolved conflicts.
+7. Continued cherry-pick.
+8. Pushed sync branch to origin.
+
+This pattern is the standard process when a feature branch is already merged upstream.
