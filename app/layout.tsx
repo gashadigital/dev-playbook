@@ -1,5 +1,4 @@
 import { RootProvider } from 'fumadocs-ui/provider/next';
-// @ts-expect-error -- global CSS side-effect import is resolved by Next.js
 import './global.css';
 import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
