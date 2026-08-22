@@ -1,0 +1,11 @@
+{
+  "title": "Releasing",
+  "pages": [
+    "index",
+    "phase-1-in-app-preparation-digital-signing",
+    "phase-2-building-the-release-bundle",
+    "phase-3-google-play-console-configuration",
+    "phase-4-release-tracks-deployment",
+    "maintenance-subsequent-releases"
+  ]
+}
