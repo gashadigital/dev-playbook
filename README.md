@@ -20,6 +20,7 @@ We created this playbook to:
 | **Mobile Development** | Flutter setup, splash screens, environment & assets |
 | **Web Development**  | Next.js, Laravel essentials, mail sandbox setup        |
 | **Identity & Authentication Providers** | Google OAuth 2.0 & credential matrix setup  |
+| **Deployment** | Cherry-picking workflows and deployment guides |
 ---
 
 ## Get Started
@@ -41,6 +42,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 1. Start with **Version Control (Git)** so all environment setup is versioned
 2. Then **Local Server** for the WAMP stack
 3. Then **Mobile** or **Web** depending on your focus
+4. Then **Identity & Authentication Providers** for Google OAuth 2.0 & credential matrix setup
+5. Finally **Deployment** for cherry-picking workflows and deployment guides
 
 ---
 
