@@ -1,0 +1,131 @@
+---
+title: Phase 1 - In-App Preparation and Digital Signing
+description: Prepare app identity, icons, and cryptographic signing for Play Store deployment.
+---
+
+## 1.1 Launcher Icon Generation
+
+Ensure high-density app launcher icons are generated across all screen densities.
+
+Add `flutter_launcher_icons` to `dev_dependencies` in `pubspec.yaml`:
+
+```yaml
+dev_dependencies:
+  flutter_launcher_icons: ^0.14.3
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/app_icon.png" # Must be minimum 1024x1024 PNG
+```
+
+Run icon generation:
+
+```bash
+flutter pub get
+flutter pub run flutter_launcher_icons
+```
+
+## 1.2 Android Namespace and SDK Targets
+
+Review `android/app/build.gradle` (or `build.gradle.kts`):
+
+```groovy
+android {
+    namespace "com.yourcompany.yourapp" // Unique Application ID
+
+    defaultConfig {
+        applicationId "com.yourcompany.yourapp"
+        minSdkVersion 24
+        targetSdkVersion 35
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+}
+```
+
+## 1.3 Upload Keystore Generation (PKCS12 Standard)
+
+Generate the cryptographic upload key used by Google Play App Signing.
+
+Navigate to your `android/` directory:
+
+```bash
+cd android
+```
+
+Run `keytool` with modern PKCS12 formatting:
+
+- macOS / Linux:
+
+```bash
+keytool -genkey -v -keystore upload-keystore.jks -storetype PKCS12 -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+```
+
+- Windows (PowerShell):
+
+```powershell
+keytool -genkey -v -keystore 'upload-keystore.jks' -storetype PKCS12 -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+```
+
+Key prompt values:
+
+- Set a strong keystore password and save it securely.
+- Fill in your certificate details (Name, Organization, City, Country).
+- Confirm with `yes` when prompted.
+
+## 1.4 Secret Key Configuration (`key.properties`)
+
+Create `android/key.properties` to reference the local keystore without hardcoding secrets:
+
+```properties
+storePassword=YOUR_KEYSTORE_PASSWORD
+keyPassword=YOUR_KEYSTORE_PASSWORD
+keyAlias=upload
+storeFile=upload-keystore.jks
+```
+
+### Git Protection
+
+Add keys and secret properties to `.gitignore` at the project root:
+
+```text
+# Keystore and Android secrets
+*.jks
+*.keystore
+android/key.properties
+```
+
+## 1.5 Linking Signing Configurations in Gradle
+
+Update `android/app/build.gradle` to load `key.properties` dynamically for release builds:
+
+```groovy
+import java.io.FileInputStream
+import java.util.Properties
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+android {
+    ...
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+```

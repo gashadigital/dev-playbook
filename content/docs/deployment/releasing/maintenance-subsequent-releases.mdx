@@ -1,0 +1,22 @@
+---
+title: Maintenance and Subsequent Releases
+description: Repeatable process for shipping updates after the first production release.
+---
+
+To deploy updates after your first production build is live:
+
+1. Update the version string in `pubspec.yaml`:
+
+```yaml
+version: 1.0.1+2 # Increment build integer (+1)
+```
+
+2. Clean and compile a new bundle:
+
+```bash
+flutter clean
+flutter pub get
+flutter build appbundle --release
+```
+
+3. In Play Console, go to **Release -> Production -> Create new release**, upload the new `app-release.aab`, add release notes, and submit for review.

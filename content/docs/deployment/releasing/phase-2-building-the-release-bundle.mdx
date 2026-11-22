@@ -1,0 +1,33 @@
+---
+title: Phase 2 - Building the Release Bundle
+description: Version your Flutter app and build production Android App Bundles for upload.
+---
+
+## 2.1 Update Versioning
+
+Increment the build code and name in `pubspec.yaml`:
+
+```yaml
+version: 1.0.0+1
+# Format: [Major].[Minor].[Patch]+[BuildNumber]
+```
+
+## 2.2 Compile the Android App Bundle (AAB)
+
+Clean caches and compile the production bundle:
+
+```bash
+flutter clean
+flutter pub get
+flutter build appbundle --release
+```
+
+Optional with code obfuscation to protect IP:
+
+```bash
+flutter build appbundle --release --obfuscate --split-debug-info=build/app/outputs/symbols
+```
+
+Artifact output location:
+
+`build/app/outputs/bundle/release/app-release.aab`

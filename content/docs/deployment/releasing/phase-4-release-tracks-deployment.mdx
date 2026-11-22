@@ -1,0 +1,67 @@
+---
+title: Phase 4 - Release Tracks and Deployment
+description: Move from internal testing to closed testing and production rollout safely.
+---
+
+## Release Progression
+
+```text
+[ Local Build: .aab ]
+|
+V
+[ 1. Internal Testing ] -- (Validate install mechanics and API telemetry)
+|
+V
+[ 2. Closed Testing ] -- (Mandatory 12 testers / 14-day rule for Personal Accounts)
+|
+V
+[ 3. Production Rollout ] -- (Full rollout or staged percentage)
+```
+
+## 4.1 Internal Testing Track (Initial Verification)
+
+Internal testing has near-zero review wait times and allows up to 100 internal developers/testers to install immediately.
+
+1. In the Play Console menu, go to **Release -> Testing -> Internal testing**.
+2. Click **Create new release**.
+3. Under **App bundles**, upload `app-release.aab` from `build/app/outputs/bundle/release/`.
+4. Enter **Release name** (for example, `1.0.0 (1)`) and internal release notes.
+5. Click **Next** -> **Save** -> **Start rollout to Internal testing**.
+6. Switch to the **Testers** tab, create an email list, select it, and copy the **Join on Android** or **Join on the web** link to install and verify your release locally.
+
+## 4.2 Closed Testing Track (14-Day Evaluation Rule)
+
+Google Play policy for personal accounts:
+
+Personal developer accounts created after November 13, 2023 must run a closed test with at least 12 opted-in testers for 14 continuous consecutive days before Google Play permits production release access application.
+
+1. Navigate to **Release -> Testing -> Closed testing**.
+2. Create a track (for example, `Alpha` or `Closed Alpha`).
+3. Click **Manage track -> Create new release** and promote your tested `.aab` or upload a fresh build.
+4. Set up tester recruitment:
+- Open the **Testers** tab.
+- Add at least 15 to 20 tester Google accounts as a buffer against dropouts.
+- Share the **Web/Android Opt-in Link** with testers.
+- Verify 12 or more testers have opted in and installed the build.
+5. Keep testers actively opening the application during the 14-day window and monitor progress in the Play Console dashboard.
+
+## 4.3 Production Rollout
+
+Once closed testing requirements are fulfilled (or immediately if using an established organization developer account):
+
+1. Navigate to **Release -> Production**.
+2. Click **Create new release** (or promote directly from Closed Testing).
+3. Confirm the verified `.aab` version code.
+4. Input public release notes categorized by locale:
+
+```text
+en-US
+- Initial release of ProjectName mobile app.
+- Smart profile sharing and contact backup features.
+```
+
+5. Choose your rollout strategy:
+- Full Rollout: Available to 100 percent of store users after review approval.
+- Staged Rollout (recommended): Release incrementally (for example, 10 percent -> 20 percent -> 50 percent -> 100 percent) over several days to monitor crash rates in production.
+
+6. Click **Next** -> **Save** -> **Review release** -> **Start rollout to Production**.

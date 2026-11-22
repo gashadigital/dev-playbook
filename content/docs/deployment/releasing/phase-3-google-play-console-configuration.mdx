@@ -1,0 +1,46 @@
+---
+title: Phase 3 - Google Play Console Configuration
+description: Configure Play Console listing metadata, policy declarations, and compliance forms.
+---
+
+## 3.1 App Creation
+
+1. Sign in to [Google Play Console](https://play.google.com/console).
+2. Click **Create app** in the top-right corner.
+3. Configure primary application properties:
+- **App name:** Up to 30 characters.
+- **Default language:** Select your primary target locale (for example, `English (United States)`).
+- **App or game:** Select **App**.
+- **Free or Paid:** Select your commercial monetization model (cannot be switched from Free to Paid after publishing).
+4. Accept Developer Program Policies and US export laws declarations.
+
+## 3.2 Main Store Listing Assets
+
+Navigate to **Grow -> Store presence -> Main store listing** and supply the following metadata and graphics.
+
+### Text Metadata
+
+- **App name:** Max 30 characters.
+- **Short description:** Up to 80 characters (surfaced directly in search previews).
+- **Full description:** Up to 4,000 characters (detailed feature specifications, contact avenues, value propositions).
+
+### Graphical Assets Matrix
+
+| Asset Type | Dimension / Ratio | Format and Constraints | Required? |
+| :--- | :--- | :--- | :--- |
+| **App Icon** | `512 x 512 px` | 32-bit PNG (with alpha), max 1024 KB | **Yes** |
+| **Feature Graphic** | `1024 x 500 px` | JPEG or 24-bit PNG (no alpha), max 15 MB | **Yes** |
+| **Phone Screenshots** | Min `1080 x 1920 px` (9:16 portrait) or `1920 x 1080 px` (16:9 landscape) | JPEG / 24-bit PNG, 320 to 3840 px per side, max 8 MB each | **Yes (Min 2, Max 8)** |
+| **7-Inch Tablet Screenshots** | Min `1080 px` short side | 16:9 or 9:16, max 8 MB each | Optional (Recommended) |
+| **10-Inch Tablet Screenshots** | Min `1080 px` short side | 16:9 or 9:16, max 8 MB each | Optional (Recommended) |
+
+## 3.3 App Content and Policy Compliance Checklist
+
+Navigate to **Policy and programmes -> App content**. Google review bots will reject the application unless every module below is completed.
+
+- [ ] **Privacy Policy:** Provide a live HTTPS link disclosing PII collection, storage, and retention mechanisms.
+- [ ] **Ads Declaration:** Declare whether the app contains ad SDKs or promotional interstitials.
+- [ ] **App Access Credentials:** If features require authentication, create a test account (for example, email/phone + OTP/password) with instructions so Google QA reviewers can log in.
+- [ ] **Target Audience and Content Rating:** Complete the IARC questionnaire regarding violence, profanity, and financial features to earn official age ratings (PEGI, ESRB).
+- [ ] **Financial Features / Government Services:** Declare non-affiliation unless officially authorized.
+- [ ] **Data Safety Form:** Accurately map collected data types (user identifiers, precise/approximate location, crash logs, device telemetry) and declare encryption in transit/rest protocols.
